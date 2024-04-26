@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d477deccfa7345a492b6094ac9c3a39c, type: 3}
+  m_Name: Game Config
+  m_EditorClassIdentifier: 
+  gridPrefab: {fileID: 3459904438250675243, guid: 441447c870231dc448eea869e6363fe8, type: 3}
+  cellPrefab: {fileID: 6654169742461657225, guid: 54d5f5fbbac6b8449b261ced1e580345, type: 3}
