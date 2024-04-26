@@ -11,6 +11,7 @@ namespace _Assets.Scripts.CompositionRoot
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<CellViewFactory>(Lifetime.Singleton);
             builder.Register<GridViewFactory>(Lifetime.Singleton);
             
             builder.Register<UIStatesFactory>(Lifetime.Singleton);

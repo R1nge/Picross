@@ -20,8 +20,7 @@ namespace _Assets.Scripts.Services.Factories
         public GridView CreateGrid(Vector3 origin, int width, int height)
         {
             var grid = _objectResolver.Instantiate(_configProvider.GameConfig.GridPrefab, origin, Quaternion.identity);
-            var cell = _objectResolver.Instantiate(_configProvider.GameConfig.CellPrefab);
-            grid.Init(width, height, cell);
+            grid.Init(width, height);
             return grid;
         }
     }

@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using _Assets.Scripts.Services.Factories;
+using UnityEngine;
+using VContainer;
 
 namespace _Assets.Scripts.Services.Grids
 {
     public class GridView : MonoBehaviour
     {
         private Grid _grid;
+        [Inject] private CellViewFactory _cellViewFactory;
 
-        public void Init(int width, int height, CellView cellPrefab)
+        public void Init(int width, int height)
         {
             _grid = new Grid(width, height);
             _grid.Init();
@@ -15,13 +18,9 @@ namespace _Assets.Scripts.Services.Grids
             {
                 for (var x = 0; x < _grid.Cells.GetLength(1); x++)
                 {
-                    var cellObject = Instantiate(cellPrefab, transform);
-                    cellObject.Init(x, y, CellState.Empty);
-                    cellObject.transform.position = new Vector3(x, y, 10f);
+                    var cellObject = _cellViewFactory.Create(x, y, x, y, CellState.Empty);
                 }
             }
         }
-
-        public void SetCellState(int x, int y, CellState state) => _grid.SetCellState(x, y, state);
     }
 }
