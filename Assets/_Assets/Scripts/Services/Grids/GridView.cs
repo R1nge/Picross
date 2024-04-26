@@ -7,6 +7,7 @@ namespace _Assets.Scripts.Services.Grids
     public class GridView : MonoBehaviour
     {
         private Grid _grid;
+        public Grid Grid => _grid;
         [Inject] private CellViewFactory _cellViewFactory;
         [Inject] private GridCompleteService _gridCompleteService;
 

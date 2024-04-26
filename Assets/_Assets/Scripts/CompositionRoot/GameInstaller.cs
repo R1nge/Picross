@@ -1,5 +1,6 @@
 using _Assets.Scripts.Services;
 using _Assets.Scripts.Services.Factories;
+using _Assets.Scripts.Services.Saves;
 using _Assets.Scripts.Services.StateMachine;
 using _Assets.Scripts.Services.UIs;
 using _Assets.Scripts.Services.UIs.LevelEditor;
@@ -13,6 +14,8 @@ namespace _Assets.Scripts.CompositionRoot
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<LevelSaveService>(Lifetime.Singleton);
+            
             builder.Register<LevelEditorController>(Lifetime.Singleton);
             
             builder.Register<GridCompleteService>(Lifetime.Singleton);
