@@ -8,6 +8,7 @@ namespace _Assets.Scripts.Services.Grids
     {
         private Grid _grid;
         [Inject] private CellViewFactory _cellViewFactory;
+        [Inject] private GridCompleteService _gridCompleteService;
 
         public void Init(int width, int height)
         {
@@ -23,6 +24,8 @@ namespace _Assets.Scripts.Services.Grids
                     cellObject.transform.SetParent(transform);
                 }
             }
+            
+            _gridCompleteService.SetPlayerGrid(_grid);
         }
     }
 }

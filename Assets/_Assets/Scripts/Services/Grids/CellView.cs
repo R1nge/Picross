@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using VContainer;
 
 namespace _Assets.Scripts.Services.Grids
 {
@@ -8,6 +9,7 @@ namespace _Assets.Scripts.Services.Grids
         [SerializeField] private SpriteRenderer spriteRenderer;
         private Cell _cell;
         private Grid _grid;
+        [Inject] private GridCompleteService _gridCompleteService;
 
         public void Init(int x, int y, CellState state, Grid grid)
         {
@@ -20,6 +22,7 @@ namespace _Assets.Scripts.Services.Grids
         {
             _grid.SetCellState(_cell.X, _cell.Y, state);
             UpdateView(state);
+            _gridCompleteService.TryComplete();
         }
 
         private void UpdateView(CellState cellState)
