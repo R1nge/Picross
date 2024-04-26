@@ -3,21 +3,18 @@ using Cysharp.Threading.Tasks;
 
 namespace _Assets.Scripts.Services.StateMachine.States
 {
-    public class InitState : IAsyncState
+    public class EditorState : IAsyncState
     {
-        private readonly GameStateMachine _stateMachine;
         private readonly UIStateMachine _uiStateMachine;
 
-        public InitState(GameStateMachine stateMachine, UIStateMachine uiStateMachine)
+        public EditorState(UIStateMachine uiStateMachine)
         {
-            _stateMachine = stateMachine;
             _uiStateMachine = uiStateMachine;
         }
 
         public async UniTask Enter()
         {
-            await _uiStateMachine.SwitchState(UIStateType.Loading);
-            await _uiStateMachine.SwitchState(UIStateType.MainMenu);
+            await _uiStateMachine.SwitchState(UIStateType.Editor);
         }
 
         public async UniTask Exit()

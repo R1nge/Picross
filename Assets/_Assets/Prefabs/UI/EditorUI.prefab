@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6514950838263809843}
   - component: {fileID: 715127925920944877}
   - component: {fileID: 6741133750646486387}
+  - component: {fileID: 6822404777026960126}
   m_Layer: 5
   m_Name: EditorUI
   m_TagString: Untagged
@@ -101,3 +102,16 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6822404777026960126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8335151913570239623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 835ed3d7e6434edd81429387f0e07c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizes: {fileID: 0}

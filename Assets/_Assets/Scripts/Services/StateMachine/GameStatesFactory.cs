@@ -2,6 +2,7 @@
 using _Assets.Scripts.Services.Factories;
 using _Assets.Scripts.Services.StateMachine.States;
 using _Assets.Scripts.Services.UIs.StateMachine;
+using _Assets.Scripts.Services.UIs.StateMachine.States;
 
 namespace _Assets.Scripts.Services.StateMachine
 {
@@ -24,6 +25,8 @@ namespace _Assets.Scripts.Services.StateMachine
                     return new InitState(gameStateMachine, _uiStateMachine);
                 case GameStateType.Game:
                     return new GameState(gameStateMachine, _gridViewFactory);
+                case GameStateType.Editor:
+                    return new EditorState(_uiStateMachine);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gameStateType), gameStateType, null);
             }
