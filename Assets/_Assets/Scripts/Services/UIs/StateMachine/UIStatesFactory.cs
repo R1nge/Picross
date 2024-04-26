@@ -1,4 +1,5 @@
 ﻿using System;
+using _Assets.Scripts.Services.UIs.LevelEditor;
 using _Assets.Scripts.Services.UIs.StateMachine.States;
 
 namespace _Assets.Scripts.Services.UIs.StateMachine
@@ -6,10 +7,12 @@ namespace _Assets.Scripts.Services.UIs.StateMachine
     public class UIStatesFactory
     {
         private readonly UIFactory _uiFactory;
+        private readonly LevelEditorController _levelEditorController;
 
-        private UIStatesFactory(UIFactory uiFactory)
+        private UIStatesFactory(UIFactory uiFactory, LevelEditorController levelEditorController)
         {
             _uiFactory = uiFactory;
+            _levelEditorController = levelEditorController;
         }
 
         public IAsyncState CreateState(UIStateType uiStateType, UIStateMachine uiStateMachine)
@@ -23,7 +26,7 @@ namespace _Assets.Scripts.Services.UIs.StateMachine
                 case UIStateType.Options:
                     return new UIOptionsState(_uiFactory);
                 case UIStateType.Editor:
-                    return new UIEditorState(_uiFactory);
+                    return new UIEditorState(_uiFactory, _levelEditorController);
                 case UIStateType.Game:
                     return new UIGameState(_uiFactory);
                 default:

@@ -2,6 +2,7 @@ using _Assets.Scripts.Services;
 using _Assets.Scripts.Services.Factories;
 using _Assets.Scripts.Services.StateMachine;
 using _Assets.Scripts.Services.UIs;
+using _Assets.Scripts.Services.UIs.LevelEditor;
 using _Assets.Scripts.Services.UIs.StateMachine;
 using VContainer;
 using VContainer.Unity;
@@ -12,6 +13,8 @@ namespace _Assets.Scripts.CompositionRoot
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<LevelEditorController>(Lifetime.Singleton);
+            
             builder.Register<GridCompleteService>(Lifetime.Singleton);
             
             builder.Register<CellViewFactory>(Lifetime.Singleton);
