@@ -17,15 +17,13 @@ namespace _Assets.Scripts.Services.Factories
             _configProvider = configProvider;
         }
 
-        public CellView Create(int positionX, int positionY, int x, int y, CellState state)
+        public CellView Create(int positionX, int positionY)
         {
             var cell = _objectResolver.Instantiate(
                 _configProvider.GameConfig.CellPrefab,
                 new Vector3(positionX, positionY, 10),
                 Quaternion.identity
             );
-
-            cell.Init(x, y, state);
 
             return cell;
         }

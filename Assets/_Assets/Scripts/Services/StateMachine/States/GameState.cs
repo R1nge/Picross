@@ -17,7 +17,7 @@ namespace _Assets.Scripts.Services.StateMachine.States
 
         public async UniTask Enter()
         {
-            _gridViewFactory.CreateGrid(Vector3.zero, 20, 20);
+            _gridViewFactory.CreateGrid(Vector3.zero, 5, 5);
         }
 
         public async UniTask Exit()
