@@ -4,6 +4,9 @@
     {
         None = 0,
         Loading = 1,
-        Game = 2
+        MainMenu = 2,
+        Options = 3,
+        Editor = 4,
+        Game = 5
     }
 }

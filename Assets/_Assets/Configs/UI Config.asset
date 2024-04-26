@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78afea04f604024aea85b4d2cc68707, type: 3}
   m_Name: UI Config
   m_EditorClassIdentifier: 
-  loadingUI: {fileID: 8335151913570239623, guid: 9d145217430945b41a219a360d4ba837, type: 3}
+  loadingUI: {fileID: 8335151913570239623, guid: 6feed11cb71538d46b5b127102db07b4, type: 3}
+  mainMenuUI: {fileID: 8335151913570239623, guid: 3e5b5ac88c0b2c34085a4bbe51fccdef, type: 3}
+  optionsUI: {fileID: 8335151913570239623, guid: b18ce71bc2e9f3444a10ac719137aebc, type: 3}
+  editorUI: {fileID: 8335151913570239623, guid: 06ccb1aefac27c940a647eaf91632eb6, type: 3}
   gameUI: {fileID: 8335151913570239623, guid: 9d145217430945b41a219a360d4ba837, type: 3}
