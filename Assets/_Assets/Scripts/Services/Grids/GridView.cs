@@ -19,6 +19,7 @@ namespace _Assets.Scripts.Services.Grids
                 for (var x = 0; x < _grid.Cells.GetLength(1); x++)
                 {
                     var cellObject = _cellViewFactory.Create(x, y, x, y, CellState.Empty);
+                    cellObject.transform.SetParent(transform);
                 }
             }
         }
