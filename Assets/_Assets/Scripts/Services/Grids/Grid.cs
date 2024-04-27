@@ -28,6 +28,11 @@ namespace _Assets.Scripts.Services.Grids
             }
         }
 
+        public void SetCellsData(Cell[,] cells)
+        {
+            _cells = cells;
+        }
+
         public void SetCellState(int x, int y, CellState state)
         {
             _cells[x, y].SetState(state);

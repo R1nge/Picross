@@ -8,8 +8,8 @@
 
 - [ ] Level Editor
   - [ ] UI
-  - [ ] Save to a file
-  - [ ] Load from a file
+  - [x] Save to a file
+  - [x] Load from a file
   - [ ] Validate
   - [ ] Play
 

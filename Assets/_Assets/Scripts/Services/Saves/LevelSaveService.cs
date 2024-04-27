@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using _Assets.Scripts.Services.Grids;
 using Newtonsoft.Json;
 using UnityEngine;
 using Grid = _Assets.Scripts.Services.Grids.Grid;
@@ -8,28 +9,41 @@ namespace _Assets.Scripts.Services.Saves
 {
     public class LevelSaveService
     {
-        public void Save(Grid grid, string levelName)
+        public LevelData LevelData { get; private set; }
+
+        public event Action<LevelData> OnLevelLoaded;
+
+        public void Save(Cell[,] cells, string levelName)
         {
-            var data = new LevelData
+            LevelData = new LevelData
             {
-                Grid = grid,
+                Cells = cells,
                 LevelName = levelName
             };
 
-            var json = JsonConvert.SerializeObject(data);
+            var json = JsonConvert.SerializeObject(LevelData);
             File.WriteAllText($"{Application.persistentDataPath}/{levelName}.json", json);
         }
 
-        public void Load()
+        public void Load(string levelName)
         {
-            Debug.Log("Load");
+            var data = File.ReadAllText($"{Application.persistentDataPath}/{levelName}.json");
+            LevelData = JsonConvert.DeserializeObject<LevelData>(data);
+            
+            OnLevelLoaded?.Invoke(LevelData);
         }
     }
 
     [Serializable]
     public struct LevelData
     {
-        public Grid Grid;
+        public Cell[,] Cells;
         public string LevelName;
+
+        public LevelData(Cell[,] cells, string levelName)
+        {
+            Cells = cells;
+            LevelName = levelName;
+        }
     }
 }

@@ -7,13 +7,18 @@ namespace _Assets.Scripts.Services.Grids
     public class GridView : MonoBehaviour
     {
         private Grid _grid;
+
         public Grid Grid => _grid;
+
         [Inject] private CellViewFactory _cellViewFactory;
+
         [Inject] private GridCompleteService _gridCompleteService;
+        private CellView[,] _cellViews;
 
         public void Init(int width, int height)
         {
             _grid = new Grid(width, height);
+            _cellViews = new CellView[width, height];
             _grid.Init();
 
             var gridWidth = _grid.Cells.GetLength(1);
@@ -35,7 +40,8 @@ namespace _Assets.Scripts.Services.Grids
                     // Instantiate and initialize the cell
                     var cellObject = _cellViewFactory.Create(x, y);
                     cellObject.Init(x, y, CellState.Empty, _grid);
-        
+                    _cellViews[x, y] = cellObject;
+
                     // Assuming the cell object has a Transform component
                     cellObject.transform.SetParent(transform, false);
                     cellObject.transform.localPosition = new Vector3(xPos, yPos, 0);
@@ -43,8 +49,20 @@ namespace _Assets.Scripts.Services.Grids
             }
 
             _gridCompleteService.SetPlayerGrid(_grid);
-            
+
             transform.position += new Vector3(0, 0, 10f);
+        }
+
+
+        public void SetCells(Cell[,] cells)
+        {
+            for (int y = 0; y < cells.GetLength(1); y++)
+            {
+                for (int x = 0; x < cells.GetLength(0); x++)
+                {
+                    _cellViews[x, y].SetState(cells[x, y].State);
+                }
+            }
         }
     }
 }
