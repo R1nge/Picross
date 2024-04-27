@@ -23,21 +23,10 @@ namespace _Assets.Scripts.Services.LevelEditor
             _gridView = _gridViewFactory.CreateGrid(Vector3.zero, 10,10);
         }
 
-        private void UpdateGrid(LevelData data)
-        {
-            Debug.Log("Update grid");
-            _gridView.SetCells(data.Cells);
-        }
+        private void UpdateGrid(LevelData data) => _gridView.SetCells(data.Cells);
 
-        public void Save()
-        {
-            Debug.Log($"Save {_gridView.Grid.Cells[0,0].State}");
-            _levelSaveService.Save(_gridView.Grid.Cells, "Test");
-        }
+        public void Save() => _levelSaveService.Save(_gridView.Grid.Cells, "Test");
 
-        public void Load()
-        {
-            _levelSaveService.Load("Test");   
-        }
+        public void Load() => _levelSaveService.Load("Test");
     }
 }

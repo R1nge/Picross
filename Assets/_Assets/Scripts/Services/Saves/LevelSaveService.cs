@@ -3,7 +3,6 @@ using System.IO;
 using _Assets.Scripts.Services.Grids;
 using Newtonsoft.Json;
 using UnityEngine;
-using Grid = _Assets.Scripts.Services.Grids.Grid;
 
 namespace _Assets.Scripts.Services.Saves
 {
@@ -29,7 +28,6 @@ namespace _Assets.Scripts.Services.Saves
         {
             var data = File.ReadAllText($"{Application.persistentDataPath}/{levelName}.json");
             LevelData = JsonConvert.DeserializeObject<LevelData>(data);
-            
             OnLevelLoaded?.Invoke(LevelData);
         }
     }
