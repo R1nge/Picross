@@ -11,6 +11,7 @@
   - [x] Save to a file
   - [x] Load from a file
   - [x] Change grid size
+  - [ ] UI set name in the editor
   - [ ] Validate
   - [ ] Play
 

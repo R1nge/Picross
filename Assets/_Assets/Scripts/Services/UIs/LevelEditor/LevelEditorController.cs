@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using _Assets.Scripts.Configs;
+﻿using _Assets.Scripts.Configs;
 using _Assets.Scripts.Services.LevelEditor;
 using TMPro;
 using UnityEngine;
@@ -26,22 +25,21 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
             _levelEditorView.SaveButton.onClick.AddListener(Save);
             _levelEditorView.LoadButton.onClick.AddListener(Load);
             
-            _levelEditorView.Dropdown.options.Clear();
+            _levelEditorView.Sizes.options.Clear();
 
             for (int i = 0; i < _configProvider.PicrossConfig.SizeCount; i++)
             {
                 var width = _configProvider.PicrossConfig.GetSize(i).Value.width;
                 var height = _configProvider.PicrossConfig.GetSize(i).Value.height;
 
-                _levelEditorView.Dropdown.options.Add(new TMP_Dropdown.OptionData($"{width}x{height}"));
+                _levelEditorView.Sizes.options.Add(new TMP_Dropdown.OptionData($"{width}x{height}"));
             }
 
-            _levelEditorView.Dropdown.onValueChanged.AddListener(SizeChanged);
+            _levelEditorView.Sizes.onValueChanged.AddListener(SizeChanged);
         }
 
         private void SizeChanged(int index)
         {
-            Debug.Log("Size changed: " + index);
             var size = _configProvider.PicrossConfig.GetSize(index);
 
             if (size != null)
@@ -50,7 +48,18 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
             }
         }
 
-        private void Save() => _levelEditorService.Save();
+        private void Save()
+        {
+            var levelName = _levelEditorView.LevelName.text;
+            
+            if (string.IsNullOrEmpty(levelName) || string.IsNullOrWhiteSpace(levelName))
+            {
+                Debug.LogError("Level name is empty");
+                return;
+            }
+
+            _levelEditorService.Save(levelName);
+        }
 
         private void Load() => _levelEditorService.Load();
     }

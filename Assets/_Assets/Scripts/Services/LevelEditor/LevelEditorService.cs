@@ -75,12 +75,12 @@ namespace _Assets.Scripts.Services.LevelEditor
             _gridView.SetCells(data.Cells);
         }
 
-        public void Save()
+        public void Save(string levelName)
         {
             var levelData = new LevelData
             {
                 Cells = _gridView.Grid.Cells,
-                LevelName = "Test",
+                LevelName = levelName,
                 Size = _currentSize
             };
             

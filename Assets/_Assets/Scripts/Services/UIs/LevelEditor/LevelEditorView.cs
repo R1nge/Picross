@@ -6,12 +6,13 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
 {
     public class LevelEditorView : MonoBehaviour
     {
-        [SerializeField] private Dropdown sizes;
         [SerializeField] private Button saveButton;
         [SerializeField] private Button loadButton;
-        [SerializeField] private TMP_Dropdown dropdown;
+        [SerializeField] private TMP_Dropdown sizes;
+        [SerializeField] private TMP_InputField levelName;
         public Button SaveButton => saveButton;
         public Button LoadButton => loadButton;
-        public TMP_Dropdown Dropdown => dropdown;
+        public TMP_Dropdown Sizes => sizes;
+        public TMP_InputField LevelName => levelName;
     }
 }
