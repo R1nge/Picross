@@ -83,10 +83,20 @@ namespace _Assets.Scripts.Services.LevelEditor
                 LevelName = levelName,
                 Size = _currentSize
             };
-            
+
             _levelSaveService.Save(levelData);
         }
 
         public void Load(string levelName) => _levelSaveService.Load(levelName);
+
+        public void Dispose()
+        {
+            if (_gridView != null)
+            {
+                Object.Destroy(_gridView.gameObject);
+            }
+
+            _levelSaveService.OnLevelLoaded -= UpdateGrid;
+        }
     }
 }

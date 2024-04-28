@@ -26,7 +26,7 @@ namespace _Assets.Scripts.Services.UIs.StateMachine
                 case UIStateType.Options:
                     return new UIOptionsState(_uiFactory);
                 case UIStateType.Editor:
-                    return new UIEditorState(_uiFactory, _levelEditorController);
+                    return new UIEditorState(uiStateMachine, _uiFactory, _levelEditorController);
                 case UIStateType.Game:
                     return new UIGameState(_uiFactory);
                 default:

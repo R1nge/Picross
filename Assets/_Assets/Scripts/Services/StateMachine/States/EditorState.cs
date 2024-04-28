@@ -23,6 +23,7 @@ namespace _Assets.Scripts.Services.StateMachine.States
 
         public async UniTask Exit()
         {
+            _levelEditorService.Dispose();
         }
     }
 }

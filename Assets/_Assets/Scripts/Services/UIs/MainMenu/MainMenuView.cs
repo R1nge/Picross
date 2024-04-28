@@ -20,5 +20,10 @@ namespace _Assets.Scripts.Services.UIs.MainMenu
         {
             _gameStateMachine.SwitchState(GameStateType.Editor).Forget();
         }
+
+        private void OnDestroy()
+        {
+            levelEditorButton.onClick.RemoveListener(LevelEditor);
+        }
     }
 }
