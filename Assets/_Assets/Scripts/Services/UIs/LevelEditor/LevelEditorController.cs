@@ -24,7 +24,7 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
             _levelEditorView = levelEditorView;
             _levelEditorView.SaveButton.onClick.AddListener(Save);
             _levelEditorView.LoadButton.onClick.AddListener(Load);
-            
+
             _levelEditorView.Sizes.options.Clear();
 
             for (int i = 0; i < _configProvider.PicrossConfig.SizeCount; i++)
@@ -51,16 +51,32 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
         private void Save()
         {
             var levelName = _levelEditorView.LevelName.text;
-            
+
+            if (!LevelNameIsEmpty(levelName))
+            {
+                _levelEditorService.Save(levelName);
+            }
+        }
+
+        private void Load()
+        {
+            var levelName = _levelEditorView.LevelName.text;
+
+            if (!LevelNameIsEmpty(levelName))
+            {
+                _levelEditorService.Load(levelName);
+            }
+        }
+
+        private bool LevelNameIsEmpty(string levelName)
+        {
             if (string.IsNullOrEmpty(levelName) || string.IsNullOrWhiteSpace(levelName))
             {
                 Debug.LogError("Level name is empty");
-                return;
+                return true;
             }
 
-            _levelEditorService.Save(levelName);
+            return false;
         }
-
-        private void Load() => _levelEditorService.Load();
     }
 }

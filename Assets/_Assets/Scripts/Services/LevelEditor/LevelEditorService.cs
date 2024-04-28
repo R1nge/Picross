@@ -87,6 +87,6 @@ namespace _Assets.Scripts.Services.LevelEditor
             _levelSaveService.Save(levelData);
         }
 
-        public void Load() => _levelSaveService.Load("Test");
+        public void Load(string levelName) => _levelSaveService.Load(levelName);
     }
 }
