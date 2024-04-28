@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using _Assets.Scripts.Configs;
 using _Assets.Scripts.Services.Grids;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -12,16 +13,11 @@ namespace _Assets.Scripts.Services.Saves
 
         public event Action<LevelData> OnLevelLoaded;
 
-        public void Save(Cell[,] cells, string levelName)
+        public void Save(LevelData levelData)
         {
-            LevelData = new LevelData
-            {
-                Cells = cells,
-                LevelName = levelName
-            };
-
+            LevelData = levelData;
             var json = JsonConvert.SerializeObject(LevelData);
-            File.WriteAllText($"{Application.persistentDataPath}/{levelName}.json", json);
+            File.WriteAllText($"{Application.persistentDataPath}/{levelData.LevelName}.json", json);
         }
 
         public void Load(string levelName)
@@ -36,11 +32,13 @@ namespace _Assets.Scripts.Services.Saves
     public struct LevelData
     {
         public Cell[,] Cells;
+        public Size Size;
         public string LevelName;
 
-        public LevelData(Cell[,] cells, string levelName)
+        public LevelData(Cell[,] cells, Size size, string levelName)
         {
             Cells = cells;
+            Size = size;
             LevelName = levelName;
         }
     }

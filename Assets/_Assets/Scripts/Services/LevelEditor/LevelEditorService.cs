@@ -51,9 +51,41 @@ namespace _Assets.Scripts.Services.LevelEditor
             _gridView = _gridViewFactory.CreateGrid(Vector3.zero, _currentSize.width, _currentSize.height);
         }
 
-        private void UpdateGrid(LevelData data) => _gridView.SetCells(data.Cells);
+        private void UpdateGrid(LevelData data)
+        {
+            if (_gridView != null)
+            {
+                if (_gridView.Grid.Cells.GetLength(0) != data.Cells.GetLength(0) ||
+                    _gridView.Grid.Cells.GetLength(1) != data.Cells.GetLength(1))
+                {
+                    Object.Destroy(_gridView.gameObject);
 
-        public void Save() => _levelSaveService.Save(_gridView.Grid.Cells, "Test");
+                    _gridView = _gridViewFactory.CreateGrid(Vector3.zero, data.Size.width, data.Size.height);
+                }
+                else
+                {
+                    _gridView.SetCells(data.Cells);
+                }
+            }
+            else
+            {
+                _gridView = _gridViewFactory.CreateGrid(Vector3.zero, data.Size.width, data.Size.height);
+            }
+
+            _gridView.SetCells(data.Cells);
+        }
+
+        public void Save()
+        {
+            var levelData = new LevelData
+            {
+                Cells = _gridView.Grid.Cells,
+                LevelName = "Test",
+                Size = _currentSize
+            };
+            
+            _levelSaveService.Save(levelData);
+        }
 
         public void Load() => _levelSaveService.Load("Test");
     }
