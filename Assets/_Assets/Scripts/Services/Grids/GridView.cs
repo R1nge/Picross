@@ -21,8 +21,8 @@ namespace _Assets.Scripts.Services.Grids
             _cellViews = new CellView[width, height];
             _grid.Init();
 
-            var gridWidth = _grid.Cells.GetLength(1);
-            var gridHeight = _grid.Cells.GetLength(0);
+            var gridWidth = _grid.Cells.GetLength(0);
+            var gridHeight = _grid.Cells.GetLength(1);
 
             var cellWidth = 1f;
             var startX = -(gridWidth * cellWidth) / 2 + cellWidth / 2;

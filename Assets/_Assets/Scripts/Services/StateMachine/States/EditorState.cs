@@ -18,6 +18,7 @@ namespace _Assets.Scripts.Services.StateMachine.States
         public async UniTask Enter()
         {
             await _uiStateMachine.SwitchState(UIStateType.Editor);
+            //TODO: config with presets
             _levelEditorService.Init();
         }
 
