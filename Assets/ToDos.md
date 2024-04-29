@@ -24,3 +24,6 @@
     - [x] Load by name
     - [ ] Validate
     - [ ] Play
+
+- [ ] Bugs
+  - [ ] Switching to the editor state every time (Create a main menu state???)

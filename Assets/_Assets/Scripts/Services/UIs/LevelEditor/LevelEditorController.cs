@@ -67,6 +67,11 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
             }
         }
 
+        private void LoadAll(int maxCount)
+        {
+            
+        }
+
         private void Load()
         {
             var levelName = _levelEditorView.LevelName.text;
