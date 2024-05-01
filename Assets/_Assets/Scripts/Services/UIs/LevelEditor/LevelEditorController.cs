@@ -1,6 +1,5 @@
 ﻿using _Assets.Scripts.Configs;
 using _Assets.Scripts.Services.LevelEditor;
-using _Assets.Scripts.Services.StateMachine;
 using _Assets.Scripts.Services.UIs.StateMachine;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -16,6 +15,7 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
         private LevelEditorView _levelEditorView;
         private UIStateMachine _uiStateMachine;
         private Grid _grid;
+
 
         private LevelEditorController(LevelEditorService levelEditorService, ConfigProvider configProvider)
         {

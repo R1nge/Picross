@@ -8,6 +8,8 @@ namespace _Assets.Scripts.Services.Grids
         [SerializeField] private SpriteRenderer spriteRenderer;
         private Cell _cell;
         private Grid _grid;
+        
+        public Cell Cell => _cell;
 
         public void Init(int x, int y, CellState state, Grid grid)
         {
@@ -18,6 +20,7 @@ namespace _Assets.Scripts.Services.Grids
 
         public void SetState(CellState state)
         {
+            _cell.SetState(state);
             _grid.SetCellState(_cell.X, _cell.Y, state);
             UpdateView(state);
         }

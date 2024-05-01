@@ -23,7 +23,7 @@
     - [x] UI set name in the editor
     - [x] Save by name
     - [x] Load by name
-    - [ ] Command pattern (Undo/Redo)
+    - [x] Command pattern (Undo/Redo)
     - [ ] Load all files from mods folder
     - [ ] Show it in the UI
     - [ ] Validate

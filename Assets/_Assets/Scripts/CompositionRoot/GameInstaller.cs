@@ -15,6 +15,8 @@ namespace _Assets.Scripts.CompositionRoot
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<EditorCommandBufferService>(Lifetime.Singleton);
+            
             builder.Register<LevelEditorService>(Lifetime.Singleton);
             builder.Register<LevelSaveService>(Lifetime.Singleton);
             

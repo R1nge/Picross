@@ -1,11 +1,15 @@
 ﻿using _Assets.Scripts.Services.Grids;
+using _Assets.Scripts.Services.LevelEditor;
+using _Assets.Scripts.Services.LevelEditor.Commands;
 using UnityEngine;
+using VContainer;
 
 namespace _Assets.Scripts.Services
 {
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private new Camera camera;
+        [Inject] private EditorCommandBufferService _editorCommandBufferService;
 
         private void Update()
         {
@@ -18,7 +22,8 @@ namespace _Assets.Scripts.Services
                     var cell = rayHit.collider.GetComponent<CellView>();
                     if (cell != null)
                     {
-                        cell.SetState(CellState.Filled);
+                        var command = new FillCellCommand(cell, cell.Cell.State);
+                        _editorCommandBufferService.Execute(command);
                     }
                 }
             }
@@ -32,8 +37,25 @@ namespace _Assets.Scripts.Services
                     var cell = rayHit.collider.GetComponent<CellView>();
                     if (cell != null)
                     {
-                        cell.SetState(CellState.Crossed);
+                        var command = new CrossCellCommand(cell, cell.Cell.State);
+                        _editorCommandBufferService.Execute(command);
                     }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (_editorCommandBufferService.HasCommands())
+                {
+                    _editorCommandBufferService.Undo();                    
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if (_editorCommandBufferService.HasUndoCommands())
+                {
+                    _editorCommandBufferService.Redo();
                 }
             }
         }
