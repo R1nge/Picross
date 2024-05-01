@@ -12,15 +12,17 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
     {
         private readonly LevelEditorService _levelEditorService;
         private readonly ConfigProvider _configProvider;
+        private readonly EditorCommandBufferService _editorCommandBufferService;
         private LevelEditorView _levelEditorView;
         private UIStateMachine _uiStateMachine;
         private Grid _grid;
 
 
-        private LevelEditorController(LevelEditorService levelEditorService, ConfigProvider configProvider)
+        private LevelEditorController(LevelEditorService levelEditorService, ConfigProvider configProvider, EditorCommandBufferService editorCommandBufferService)
         {
             _levelEditorService = levelEditorService;
             _configProvider = configProvider;
+            _editorCommandBufferService = editorCommandBufferService;
         }
 
         public void Init(LevelEditorView levelEditorView, UIStateMachine uiStateMachine)
@@ -54,6 +56,7 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
             if (size != null)
             {
                 _levelEditorService.ChangeSize(size.Value);
+                _editorCommandBufferService.Clear();
             }
         }
 
@@ -79,6 +82,7 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
             if (!LevelNameIsEmpty(levelName))
             {
                 _levelEditorService.Load(levelName);
+                _editorCommandBufferService.Clear();
             }
         }
 
@@ -104,6 +108,7 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
             }
             
             _levelEditorService.Dispose();
+            _editorCommandBufferService.Clear();
         }
     }
 }

@@ -24,6 +24,7 @@
     - [x] Save by name
     - [x] Load by name
     - [x] Command pattern (Undo/Redo)
+    - [x] Empty command buffer on (Exit, Size change)
     - [ ] Load all files from mods folder
     - [ ] Show it in the UI
     - [ ] Validate

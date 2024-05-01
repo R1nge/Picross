@@ -32,5 +32,11 @@ namespace _Assets.Scripts.Services.LevelEditor
             command.Execute();
             _commands.PushLast(command);
         }
+
+        public void Clear()
+        {
+            _commands.Clear();
+            _undoCommands.Clear();
+        }
     }
 }
