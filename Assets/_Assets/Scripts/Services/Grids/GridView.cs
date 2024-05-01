@@ -1,4 +1,5 @@
-﻿using _Assets.Scripts.Services.Factories;
+﻿using _Assets.Scripts.Configs;
+using _Assets.Scripts.Services.Factories;
 using UnityEngine;
 using VContainer;
 
@@ -14,6 +15,11 @@ namespace _Assets.Scripts.Services.Grids
 
         [Inject] private GridCompleteService _gridCompleteService;
         private CellView[,] _cellViews;
+        
+        public void Init(Size size)
+        {
+            Init(size.width, size.height);
+        }
 
         public void Init(int width, int height)
         {

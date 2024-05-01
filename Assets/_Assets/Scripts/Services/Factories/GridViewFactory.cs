@@ -23,5 +23,12 @@ namespace _Assets.Scripts.Services.Factories
             grid.Init(width, height);
             return grid;
         }
+
+        public GridView CreateGrid(Vector3 origin, Size size)
+        {
+            var grid = _objectResolver.Instantiate(_configProvider.GameConfig.GridPrefab, origin, Quaternion.identity);
+            grid.Init(size);
+            return grid;
+        }
     }
 }

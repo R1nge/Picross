@@ -16,12 +16,16 @@
 
 - [ ] Level Editor
     - [ ] UI
+      - [ ] Map slot (Name, button)
     - [x] Save to a file
     - [x] Load from a file
     - [x] Change grid size
     - [x] UI set name in the editor
     - [x] Save by name
     - [x] Load by name
+    - [ ] Command pattern (Undo/Redo)
+    - [ ] Load all files from mods folder
+    - [ ] Show it in the UI
     - [ ] Validate
     - [ ] Play
 
