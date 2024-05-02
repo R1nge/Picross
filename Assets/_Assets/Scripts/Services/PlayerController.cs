@@ -46,13 +46,25 @@ namespace _Assets.Scripts.Services
                     case PlayerState.None:
                         break;
                     case PlayerState.Fill:
-                        _editorCommandBufferService.Execute(new FillCellCommand(cell, cell.Cell.State));
+                        if (cell.Cell.State != CellState.Filled)
+                        {
+                            _editorCommandBufferService.Execute(new FillCellCommand(cell, cell.Cell.State));
+                        }
+
                         break;
                     case PlayerState.Cross:
-                        _editorCommandBufferService.Execute(new CrossCellCommand(cell, cell.Cell.State));
+                        if (cell.Cell.State != CellState.Crossed)
+                        {
+                            _editorCommandBufferService.Execute(new CrossCellCommand(cell, cell.Cell.State));
+                        }
+
                         break;
                     case PlayerState.Empty:
-                        _editorCommandBufferService.Execute(new EmptyCellCommand(cell, cell.Cell.State));
+                        if (cell.Cell.State != CellState.Empty)
+                        {
+                            _editorCommandBufferService.Execute(new EmptyCellCommand(cell, cell.Cell.State));
+                        }
+
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
