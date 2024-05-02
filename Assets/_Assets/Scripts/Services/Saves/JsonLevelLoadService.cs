@@ -4,11 +4,10 @@ using _Assets.Scripts.Configs;
 using _Assets.Scripts.Misc;
 using _Assets.Scripts.Services.Grids;
 using Newtonsoft.Json;
-using UnityEngine;
 
 namespace _Assets.Scripts.Services.Saves
 {
-    public class LevelSaveService
+    public class JsonLevelLoadService : ILevelLoader
     {
         public LevelData LevelData { get; private set; }
 

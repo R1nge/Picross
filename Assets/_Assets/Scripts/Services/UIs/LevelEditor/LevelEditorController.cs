@@ -37,8 +37,8 @@ namespace _Assets.Scripts.Services.UIs.LevelEditor
 
             for (int i = 0; i < _configProvider.PicrossConfig.SizeCount; i++)
             {
-                var width = _configProvider.PicrossConfig.GetSize(i).Value.width;
-                var height = _configProvider.PicrossConfig.GetSize(i).Value.height;
+                var width = _configProvider.PicrossConfig.GetSize(i)!.Value.width;
+                var height = _configProvider.PicrossConfig.GetSize(i)!.Value.height;
 
                 _levelEditorView.Sizes.options.Add(new TMP_Dropdown.OptionData($"{width}x{height}"));
             }

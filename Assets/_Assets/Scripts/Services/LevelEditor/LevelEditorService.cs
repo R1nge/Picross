@@ -8,13 +8,13 @@ namespace _Assets.Scripts.Services.LevelEditor
 {
     public class LevelEditorService
     {
-        private readonly LevelSaveService _levelSaveService;
+        private readonly ILevelLoader _levelSaveService;
         private readonly GridViewFactory _gridViewFactory;
         private readonly ConfigProvider _configProvider;
         private GridView _gridView;
         private Size _currentSize;
 
-        private LevelEditorService(LevelSaveService levelSaveService, GridViewFactory gridViewFactory,
+        private LevelEditorService(ILevelLoader levelSaveService, GridViewFactory gridViewFactory,
             ConfigProvider configProvider)
         {
             _levelSaveService = levelSaveService;

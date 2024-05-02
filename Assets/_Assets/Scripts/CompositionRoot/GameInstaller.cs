@@ -18,7 +18,7 @@ namespace _Assets.Scripts.CompositionRoot
             builder.Register<EditorCommandBufferService>(Lifetime.Singleton);
             
             builder.Register<LevelEditorService>(Lifetime.Singleton);
-            builder.Register<LevelSaveService>(Lifetime.Singleton);
+            builder.Register<JsonLevelLoadService>(Lifetime.Singleton).As<ILevelLoader>();
             
             builder.Register<LevelEditorController>(Lifetime.Singleton);
             
