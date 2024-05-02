@@ -7,6 +7,7 @@
     - [ ] count from left to right, reset if empty cell
 
 - [ ] Play
+- [x] Continuous grid painting
 - [ ] Load levels from a directory
     - [ ] UI
         - [ ] Display levels

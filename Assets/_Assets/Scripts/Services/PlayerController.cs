@@ -1,4 +1,5 @@
-﻿using _Assets.Scripts.Services.Grids;
+﻿using System;
+using _Assets.Scripts.Services.Grids;
 using _Assets.Scripts.Services.LevelEditor;
 using _Assets.Scripts.Services.LevelEditor.Commands;
 using UnityEngine;
@@ -10,36 +11,51 @@ namespace _Assets.Scripts.Services
     {
         [SerializeField] private new Camera camera;
         [Inject] private EditorCommandBufferService _editorCommandBufferService;
+        private PlayerState _playerState;
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                var rayHit = Physics2D.GetRayIntersection(camera.ScreenPointToRay(Input.mousePosition));
-
-                if (rayHit.collider != null)
-                {
-                    var cell = rayHit.collider.GetComponent<CellView>();
-                    if (cell != null)
-                    {
-                        var command = new FillCellCommand(cell, cell.Cell.State);
-                        _editorCommandBufferService.Execute(command);
-                    }
-                }
+                _playerState = PlayerState.Fill;
             }
 
             if (Input.GetMouseButtonDown(1))
             {
+                _playerState = PlayerState.Cross;
+            }
+
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+            {
                 var rayHit = Physics2D.GetRayIntersection(camera.ScreenPointToRay(Input.mousePosition));
 
-                if (rayHit.collider != null)
+                if (rayHit.collider == null)
                 {
-                    var cell = rayHit.collider.GetComponent<CellView>();
-                    if (cell != null)
-                    {
-                        var command = new CrossCellCommand(cell, cell.Cell.State);
-                        _editorCommandBufferService.Execute(command);
-                    }
+                    return;
+                }
+
+                var cell = rayHit.collider.GetComponent<CellView>();
+
+                if (cell == null)
+                {
+                    return;
+                }
+
+                switch (_playerState)
+                {
+                    case PlayerState.None:
+                        break;
+                    case PlayerState.Fill:
+                        _editorCommandBufferService.Execute(new FillCellCommand(cell, cell.Cell.State));
+                        break;
+                    case PlayerState.Cross:
+                        _editorCommandBufferService.Execute(new CrossCellCommand(cell, cell.Cell.State));
+                        break;
+                    case PlayerState.Empty:
+                        _editorCommandBufferService.Execute(new EmptyCellCommand(cell, cell.Cell.State));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -47,7 +63,7 @@ namespace _Assets.Scripts.Services
             {
                 if (_editorCommandBufferService.HasCommands())
                 {
-                    _editorCommandBufferService.Undo();                    
+                    _editorCommandBufferService.Undo();
                 }
             }
 
@@ -58,6 +74,14 @@ namespace _Assets.Scripts.Services
                     _editorCommandBufferService.Redo();
                 }
             }
+        }
+
+        private enum PlayerState : byte
+        {
+            None = 0,
+            Fill = 1,
+            Cross = 2,
+            Empty = 3
         }
     }
 }
