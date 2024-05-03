@@ -5,9 +5,9 @@
     - [x] center it
     - [ ] side numbers
     - [ ] count from left to right, reset if empty cell
+- [x] Continuous grid painting
 
 - [ ] Play
-- [x] Continuous grid painting
 - [ ] Load levels from a directory
     - [ ] UI
         - [ ] Display levels

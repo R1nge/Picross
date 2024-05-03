@@ -12,9 +12,27 @@ namespace _Assets.Scripts.Services
         [SerializeField] private new Camera camera;
         [Inject] private EditorCommandBufferService _editorCommandBufferService;
         private PlayerState _playerState;
+        private PaintDirection _paintDirection;
+        private Cell _previousCell;
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (_editorCommandBufferService.HasCommands())
+                {
+                    _editorCommandBufferService.Undo();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if (_editorCommandBufferService.HasUndoCommands())
+                {
+                    _editorCommandBufferService.Redo();
+                }
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 _playerState = PlayerState.Fill;
@@ -23,6 +41,13 @@ namespace _Assets.Scripts.Services
             if (Input.GetMouseButtonDown(1))
             {
                 _playerState = PlayerState.Cross;
+            }
+
+            if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+            {
+                _playerState = PlayerState.None;
+                _paintDirection = PaintDirection.None;
+                _previousCell = null;
             }
 
             if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
@@ -41,50 +66,89 @@ namespace _Assets.Scripts.Services
                     return;
                 }
 
-                switch (_playerState)
+                _previousCell ??= cell.Cell;
+
+                if (_previousCell != null)
                 {
-                    case PlayerState.None:
-                        break;
-                    case PlayerState.Fill:
-                        if (cell.Cell.State != CellState.Filled)
+                    if (_paintDirection == PaintDirection.None)
+                    {
+                        var deltaX = Mathf.Abs(cell.Cell.X - _previousCell.X);
+                        var deltaY = Mathf.Abs(cell.Cell.Y - _previousCell.Y);
+
+                        if (deltaX > deltaY)
                         {
-                            _editorCommandBufferService.Execute(new FillCellCommand(cell, cell.Cell.State));
+                            _paintDirection = PaintDirection.Horizontal;
+                        }
+
+                        if (deltaX < deltaY)
+                        {
+                            _paintDirection = PaintDirection.Vertical;
+                        }
+                    }
+                }
+
+                switch (_paintDirection)
+                {
+                    case PaintDirection.None:
+                        ChangeCellState(cell);
+
+                        break;
+                    case PaintDirection.Vertical:
+                        if (cell.Cell.X == _previousCell.X && cell.Cell.Y != _previousCell.Y)
+                        {
+                            ChangeCellState(cell);
                         }
 
                         break;
-                    case PlayerState.Cross:
-                        if (cell.Cell.State != CellState.Crossed)
+                    case PaintDirection.Horizontal:
+                        if (cell.Cell.X != _previousCell.X && cell.Cell.Y == _previousCell.Y)
                         {
-                            _editorCommandBufferService.Execute(new CrossCellCommand(cell, cell.Cell.State));
+                            ChangeCellState(cell);
                         }
 
                         break;
-                    case PlayerState.Empty:
-                        if (cell.Cell.State != CellState.Empty)
-                        {
-                            _editorCommandBufferService.Execute(new EmptyCellCommand(cell, cell.Cell.State));
-                        }
-
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
             }
+        }
 
-            if (Input.GetKeyDown(KeyCode.Z))
+        private void ChangeCellState(CellView cell)
+        {
+            switch (_playerState)
             {
-                if (_editorCommandBufferService.HasCommands())
-                {
-                    _editorCommandBufferService.Undo();
-                }
-            }
+                case PlayerState.None:
+                    break;
+                case PlayerState.Fill:
 
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                if (_editorCommandBufferService.HasUndoCommands())
-                {
-                    _editorCommandBufferService.Redo();
-                }
+                    if (cell.Cell.State != CellState.Filled)
+                    {
+                        Debug.Log("Fill");
+                        _editorCommandBufferService.Execute(new FillCellCommand(cell, cell.Cell.State));
+                    }
+
+                    break;
+
+                case PlayerState.Cross:
+
+                    if (cell.Cell.State != CellState.Crossed)
+                    {
+                        _editorCommandBufferService.Execute(
+                            new CrossCellCommand(cell, cell.Cell.State));
+                    }
+
+                    break;
+
+                case PlayerState.Empty:
+
+                    if (cell.Cell.State != CellState.Empty)
+                    {
+                        _editorCommandBufferService.Execute(
+                            new EmptyCellCommand(cell, cell.Cell.State));
+                    }
+
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -94,6 +158,13 @@ namespace _Assets.Scripts.Services
             Fill = 1,
             Cross = 2,
             Empty = 3
+        }
+
+        private enum PaintDirection : byte
+        {
+            None = 0,
+            Vertical = 1,
+            Horizontal = 2
         }
     }
 }
