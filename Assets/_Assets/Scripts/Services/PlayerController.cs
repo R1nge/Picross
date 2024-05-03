@@ -42,13 +42,13 @@ namespace _Assets.Scripts.Services
                     return;
                 }
 
-                if (cell.Cell.State == CellState.Filled)
-                {
-                    _playerState = PlayerState.Empty;
-                }
-                else if (cell.Cell.State == CellState.Empty)
+                if (cell.Cell.State == CellState.Empty)
                 {
                     _playerState = PlayerState.Fill;
+                }
+                else if (cell.Cell.State == CellState.Filled)
+                {
+                    _playerState = PlayerState.EmptyFill;
                 }
             }
 
@@ -67,7 +67,7 @@ namespace _Assets.Scripts.Services
                 }
                 else if (cell.Cell.State == CellState.Crossed)
                 {
-                    _playerState = PlayerState.Empty;
+                    _playerState = PlayerState.EmptyCross;
                 }
             }
 
@@ -164,7 +164,7 @@ namespace _Assets.Scripts.Services
                     break;
                 case PlayerState.Fill:
 
-                    if (cell.Cell.State != CellState.Filled)
+                    if (cell.Cell.State != CellState.Filled && cell.Cell.State != CellState.Crossed)
                     {
                         _editorCommandBufferService.Execute(new FillCellCommand(cell, cell.Cell.State));
                     }
@@ -173,20 +173,30 @@ namespace _Assets.Scripts.Services
 
                 case PlayerState.Cross:
 
-                    if (cell.Cell.State != CellState.Crossed)
+                    if (cell.Cell.State != CellState.Crossed && cell.Cell.State != CellState.Filled)
                     {
                         _editorCommandBufferService.Execute(new CrossCellCommand(cell, cell.Cell.State));
                     }
 
                     break;
 
-                case PlayerState.Empty:
+                case PlayerState.EmptyFill:
 
-                    if (cell.Cell.State != CellState.Empty)
+                    if (cell.Cell.State == CellState.Filled)
                     {
                         _editorCommandBufferService.Execute(new EmptyCellCommand(cell, cell.Cell.State));
                     }
-            
+
+                    break;
+
+
+                case PlayerState.EmptyCross:
+
+                    if (cell.Cell.State == CellState.Crossed)
+                    {
+                        _editorCommandBufferService.Execute(new EmptyCellCommand(cell, cell.Cell.State));
+                    }
+
                     break;
 
                 default:
@@ -199,7 +209,8 @@ namespace _Assets.Scripts.Services
             None = 0,
             Fill = 1,
             Cross = 2,
-            Empty = 3
+            EmptyFill = 3,
+            EmptyCross = 4
         }
 
         private enum PaintDirection : byte
