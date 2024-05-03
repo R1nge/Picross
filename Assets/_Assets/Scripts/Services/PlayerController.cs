@@ -35,12 +35,40 @@ namespace _Assets.Scripts.Services
 
             if (Input.GetMouseButtonDown(0))
             {
-                _playerState = PlayerState.Fill;
+                var cell = GetCellView();
+
+                if (cell == null)
+                {
+                    return;
+                }
+
+                if (cell.Cell.State == CellState.Filled)
+                {
+                    _playerState = PlayerState.Empty;
+                }
+                else if (cell.Cell.State == CellState.Empty)
+                {
+                    _playerState = PlayerState.Fill;
+                }
             }
 
             if (Input.GetMouseButtonDown(1))
             {
-                _playerState = PlayerState.Cross;
+                var cell = GetCellView();
+
+                if (cell == null)
+                {
+                    return;
+                }
+
+                if (cell.Cell.State == CellState.Empty)
+                {
+                    _playerState = PlayerState.Cross;
+                }
+                else if (cell.Cell.State == CellState.Crossed)
+                {
+                    _playerState = PlayerState.Empty;
+                }
             }
 
             if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
@@ -52,16 +80,14 @@ namespace _Assets.Scripts.Services
 
             if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
-                var rayHit = Physics2D.GetRayIntersection(camera.ScreenPointToRay(Input.mousePosition));
+                var cell = GetCellView();
 
-                if (rayHit.collider == null)
+                if (cell == null)
                 {
                     return;
                 }
 
-                var cell = rayHit.collider.GetComponent<CellView>();
-
-                if (cell == null)
+                if (_playerState == PlayerState.None)
                 {
                     return;
                 }
@@ -111,6 +137,25 @@ namespace _Assets.Scripts.Services
             }
         }
 
+        private CellView GetCellView()
+        {
+            var rayHit = Physics2D.GetRayIntersection(camera.ScreenPointToRay(Input.mousePosition));
+
+            if (rayHit.collider == null)
+            {
+                return null;
+            }
+
+            var cell = rayHit.collider.GetComponent<CellView>();
+
+            if (cell == null)
+            {
+                return null;
+            }
+
+            return cell;
+        }
+
         private void ChangeCellState(CellView cell)
         {
             switch (_playerState)
@@ -121,7 +166,6 @@ namespace _Assets.Scripts.Services
 
                     if (cell.Cell.State != CellState.Filled)
                     {
-                        Debug.Log("Fill");
                         _editorCommandBufferService.Execute(new FillCellCommand(cell, cell.Cell.State));
                     }
 
@@ -131,8 +175,7 @@ namespace _Assets.Scripts.Services
 
                     if (cell.Cell.State != CellState.Crossed)
                     {
-                        _editorCommandBufferService.Execute(
-                            new CrossCellCommand(cell, cell.Cell.State));
+                        _editorCommandBufferService.Execute(new CrossCellCommand(cell, cell.Cell.State));
                     }
 
                     break;
@@ -141,10 +184,9 @@ namespace _Assets.Scripts.Services
 
                     if (cell.Cell.State != CellState.Empty)
                     {
-                        _editorCommandBufferService.Execute(
-                            new EmptyCellCommand(cell, cell.Cell.State));
+                        _editorCommandBufferService.Execute(new EmptyCellCommand(cell, cell.Cell.State));
                     }
-
+            
                     break;
 
                 default:
