@@ -31,5 +31,9 @@
     - [ ] Validate
     - [ ] Play
 
+
+- [ ] QOL
+  - [ ] Error popup
+
 - [ ] Bugs
   - [ ] Switching to the editor state every time (Create a main menu state???)

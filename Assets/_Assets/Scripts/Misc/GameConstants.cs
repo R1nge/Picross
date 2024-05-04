@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 
 namespace _Assets.Scripts.Misc
@@ -15,7 +16,15 @@ namespace _Assets.Scripts.Misc
             switch (path)
             {
                 case Paths.ModsFolder:
-                    return $"{Application.persistentDataPath}/";
+                    var modsPath = $"{Application.persistentDataPath}/Mods/";
+                    if (File.Exists(modsPath))
+                    {
+                        return modsPath;
+                    }
+
+                    Directory.CreateDirectory(modsPath);
+                    return modsPath;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(path), path, null);
             }
