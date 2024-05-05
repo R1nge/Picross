@@ -17,12 +17,12 @@ namespace _Assets.Scripts.Services.Saves
         {
             LevelData = levelData;
             var json = JsonConvert.SerializeObject(LevelData);
-            File.WriteAllText($"{GameConstants.GetPath(GameConstants.Paths.ModsFolder)}{levelData.LevelName}.json", json);
+            File.WriteAllText($"{GameConstants.GetPath(GameConstants.Paths.MapsFolder)}{levelData.LevelName}.json", json);
         }
 
         public void Load(string levelName)
         {
-            var data = File.ReadAllText($"{GameConstants.GetPath(GameConstants.Paths.ModsFolder)}{levelName}.json");
+            var data = File.ReadAllText($"{GameConstants.GetPath(GameConstants.Paths.MapsFolder)}{levelName}.json");
             LevelData = JsonConvert.DeserializeObject<LevelData>(data);
             OnLevelLoaded?.Invoke(LevelData);
         }

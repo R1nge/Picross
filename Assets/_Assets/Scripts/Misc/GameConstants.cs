@@ -8,15 +8,15 @@ namespace _Assets.Scripts.Misc
     {
         public enum Paths
         {
-            ModsFolder,
+            MapsFolder,
         }
 
         public static string GetPath(Paths path)
         {
             switch (path)
             {
-                case Paths.ModsFolder:
-                    var modsPath = $"{Application.persistentDataPath}/Mods/";
+                case Paths.MapsFolder:
+                    var modsPath = $"{Application.persistentDataPath}/Maps/";
                     if (File.Exists(modsPath))
                     {
                         return modsPath;
